@@ -1,0 +1,12 @@
+.patient-detail-heading { display: flex; align-items: center; gap: 12px; }
+.patient-detail-layout { display: grid; grid-template-columns: minmax(300px, 420px) minmax(0, 1fr); gap: 22px; align-items: start; }
+.patient-facts { display: grid; grid-template-columns: 95px minmax(0, 1fr); gap: 12px 18px; margin: 20px 0; font-size: 14px; }
+.patient-facts dt { color: #6d7e80; }
+.patient-facts dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.patient-conflict { padding: 14px; margin: 16px 0; border: 1px solid #e3cb91; background: #fff8e8; border-radius: 6px; }
+.patient-conflict p { margin: 0 0 12px; }
+.patient-conflict .patient-facts { max-height: 280px; overflow-y: auto; }
+.patient-conflict button + button { margin-top: 8px; }
+.patient-editor .field-hint { display: block; font-weight: 400; }
+.history-card .notice { margin: 0 0 16px; }
+@media (max-width: 1100px) { .patient-detail-layout { grid-template-columns: 1fr; } }

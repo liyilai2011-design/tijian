@@ -1,0 +1,22 @@
+<!-- Replace paths, configure the service account, and validate Caddyfile first. -->
+<service>
+  <id>HealthcheckWeb</id>
+  <name>体检系统网页入口</name>
+  <description>Caddy serves the production webpage and proxies the local API.</description>
+  <executable>C:\Healthcheck\deploy\caddy.exe</executable>
+  <arguments>run --config "C:\Healthcheck\deploy\Caddyfile" --adapter caddyfile</arguments>
+  <workingdirectory>C:\Healthcheck\deploy</workingdirectory>
+  <env name="APPDATA" value="C:\Healthcheck\data\caddy" />
+  <startmode>Automatic</startmode>
+  <delayedAutoStart>true</delayedAutoStart>
+  <depend>HealthcheckApi</depend>
+  <onfailure action="restart" delay="15 sec" />
+  <onfailure action="restart" delay="30 sec" />
+  <resetfailure>1 hour</resetfailure>
+  <stoptimeout>30 sec</stoptimeout>
+  <logpath>C:\Healthcheck\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>10</keepFiles>
+  </log>
+</service>

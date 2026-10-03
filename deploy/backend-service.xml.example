@@ -1,0 +1,28 @@
+<!--
+  WinSW service template only. This file does not install or start a service.
+  Copy to healthcheck-api.xml beside an official WinSW binary named healthcheck-api.exe.
+  Replace C:\Healthcheck with the actual server installation directory.
+  Configure a dedicated Windows service account before production use.
+-->
+<service>
+  <id>HealthcheckApi</id>
+  <name>体检系统后端</name>
+  <description>FastAPI backend for the local health check center.</description>
+  <executable>C:\Healthcheck\.venv\Scripts\python.exe</executable>
+  <arguments>-m uvicorn app.main:app --host 127.0.0.1 --port 8000 --no-access-log</arguments>
+  <workingdirectory>C:\Healthcheck\backend</workingdirectory>
+  <startmode>Automatic</startmode>
+  <delayedAutoStart>true</delayedAutoStart>
+  <!-- Replace with the real PostgreSQL Windows service name when using PostgreSQL:
+  <depend>postgresql-x64-18</depend>
+  -->
+  <onfailure action="restart" delay="15 sec" />
+  <onfailure action="restart" delay="30 sec" />
+  <resetfailure>1 hour</resetfailure>
+  <stoptimeout>30 sec</stoptimeout>
+  <logpath>C:\Healthcheck\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>10</keepFiles>
+  </log>
+</service>

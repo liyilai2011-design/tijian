@@ -1,0 +1,22 @@
+# Replace the IP and root path before use. This is a production HTTPS template.
+# Clients must trust Caddy's local root certificate; see docs/DEPLOYMENT.md.
+192.168.1.100 {
+    tls internal
+    encode gzip
+
+    # Keep /api in the upstream request path. Do not use handle_path here.
+    @api path /api /api/*
+    handle @api {
+        header Cache-Control "no-store"
+        reverse_proxy 127.0.0.1:8000
+    }
+
+    handle {
+        root * "C:/Healthcheck/frontend/dist"
+        route {
+            try_files {path} /index.html
+            header /index.html Cache-Control "no-cache"
+            file_server
+        }
+    }
+}
